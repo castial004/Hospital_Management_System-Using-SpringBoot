@@ -1,8 +1,9 @@
-INSERT INTO patient (name, email, birth_date, blood_group) VALUES
-('Alice Johnson', 'alice.johnson@gmail.com', '1991-03-14', 'A_POSITIVE'),
-('Brian Miller', 'brian.miller@gmail.com', '1985-06-21', 'O_NEGATIVE'),
-('Catherine Lee', 'catherine.lee@gmail.com', '1993-12-02', 'B_POSITIVE'),
-('David Clark', 'david.clark@gmail.com', '1979-08-09', 'AB_NEGATIVE');
+--INSERT INTO patient (name, email, birth_date, blood_group) VALUES
+--('Alice Johnson', 'alice.johnson@gmail.com', '1991-03-14', 'A_POSITIVE'),
+--('Brian Miller', 'brian.miller@gmail.com', '1985-06-21', 'O_NEGATIVE'),
+--('Catherine Lee', 'catherine.lee@gmail.com', '1993-12-02', 'B_POSITIVE'),
+--('David Clark', 'david.clark@gmail.com', '1979-08-09', 'AB_NEGATIVE');
+
 --('Emma Thompson', 'emma.thompson@gmail.com', '2001-01-17', 'O_POSITIVE'),
 --('Frank Harris', 'frank.harris@gmail.com', '1987-04-25', 'A_NEGATIVE'),
 --('Grace Walker', 'grace.walker@gmail.com', '1996-10-11', 'B_NEGATIVE'),
@@ -21,17 +22,19 @@ INSERT INTO patient (name, email, birth_date, blood_group) VALUES
 --('Samuel Rivera', 'samuel.rivera@gmail.com', '1986-09-14', 'B_POSITIVE'),
 --('Tina Brooks', 'tina.brooks@gmail.com', '1998-02-26', 'O_NEGATIVE');
 
-INSERT INTO doctor (name, email, specialization) VALUES
-('Dr. John Smith', 'john.smith@example.com', 'Cardiology'),
-('Dr. Emily Johnson', 'emily.johnson@example.com', 'Dermatology'),
-('Dr. Michael Brown', 'michael.brown@example.com', 'Neurology'),
-('Dr. Sarah Davis', 'sarah.davis@example.com', 'Pediatrics'),
-('Dr. Robert Wilson', 'robert.wilson@example.com', 'Orthopedics');
+--INSERT INTO doctor (name, email, specialization) VALUES
+--('Dr. John Smith', 'john.smith@example.com', 'Cardiology'),
+--('Dr. Emily Johnson', 'emily.johnson@example.com', 'Dermatology'),
+--('Dr. Michael Brown', 'michael.brown@example.com', 'Neurology'),
+--('Dr. Sarah Davis', 'sarah.davis@example.com', 'Pediatrics'),
+--('Dr. Robert Wilson', 'robert.wilson@example.com', 'Orthopedics');
 
-INSERT INTO appointment (reason, appointment_time, patient_id, doctor_id) VALUES
-('Routine check-up', '2026-02-05 09:00:00', 1, 1),
-('Skin rash consultation', '2026-02-05 10:30:00', 2, 2),
-('Migraine evaluation', '2026-02-06 11:00:00', 3, 3);
+--INSERT INTO appointment (reason, appointment_time, patient_id, doctor_id) VALUES
+--('Routine check-up', '2026-02-05 09:00:00', 1, 1),
+--('Skin rash consultation', '2026-02-05 10:30:00', 2, 2),
+--('Migraine evaluation', '2026-02-06 11:00:00', 3, 3);
+
+
 --('Pediatric vaccine', '2026-02-06 14:00:00', 4, 4),
 --('Knee pain assessment', '2026-02-07 09:30:00', 5, 5),
 --('Heart palpitations', '2026-02-07 10:00:00', 6, 1),
