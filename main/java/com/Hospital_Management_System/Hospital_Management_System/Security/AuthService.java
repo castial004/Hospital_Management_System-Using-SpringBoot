@@ -1,8 +1,8 @@
 package com.Hospital_Management_System.Hospital_Management_System.Services;
 
 import com.Hospital_Management_System.Hospital_Management_System.Entity.AppUser;
-import com.Hospital_Management_System.Hospital_Management_System.Entity.UserRequestDto;
-import com.Hospital_Management_System.Hospital_Management_System.Entity.UserResponseDto;
+import com.Hospital_Management_System.Hospital_Management_System.Dto.UserRequestDto;
+import com.Hospital_Management_System.Hospital_Management_System.Dto.UserResponseDto;
 import com.Hospital_Management_System.Hospital_Management_System.Repository.AppUserRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
