@@ -22,10 +22,8 @@ public class PatientService {
 
 
     public PatientDto createPatient(PatientRequestDto patientDto){
-        Optional<Patient> existingPatient =  patientRepo.findByEmail(patientDto.getEmail());
-        if(existingPatient.isPresent()){
-            throw new DuplicateEmailException("Email already Exist");
-        }
+        Patient existingPatient =  patientRepo.findByEmail(patientDto.getEmail()).orElseThrow(()->new DuplicateEmailException("Email already exists"));
+
         Patient patient = Patient.builder()
                 .name(patientDto.getName())
                 .email(patientDto.getEmail())
