@@ -2,9 +2,11 @@ package com.Hospital_Management_System.Hospital_Management_System.Error;
 
 import com.Hospital_Management_System.Hospital_Management_System.CustomException.DuplicateEmailException;
 import io.jsonwebtoken.JwtException;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -34,5 +36,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiError> handleUsernameNotFound(UsernameNotFoundException usernameNotFoundException){
         ApiError apiError = new ApiError(usernameNotFoundException.getMessage(),HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(apiError,HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ApiError> handleLoginException(AuthenticationException authenticationException){
+        ApiError apiError = new ApiError("Invalid Credentials, User doesn't exists ",HttpStatus.BAD_REQUEST);
+        return ResponseEntity.badRequest().body(apiError);
+    }
+    @ExceptionHandler(EntityExistsException.class)
+    public ResponseEntity<ApiError> handelSignupException(EntityExistsException entityExistsException){
+        ApiError apiError = new ApiError("User Already Exist Choose Different Username!",HttpStatus.BAD_REQUEST);
+        return ResponseEntity.badRequest().body(apiError);
     }
 }
