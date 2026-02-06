@@ -26,21 +26,17 @@ public class InsuranceService {
 
     @Transactional
     public InsuranceDto setPatientInsurance(Insurance insurance, Long patientId){
-        Optional<Patient> patientOptional = patientRepo.findById(patientId);
-        if(patientOptional.isPresent()){
-            Patient patient =  patientOptional.get();
+        Patient patient = patientRepo.findById(patientId).orElseThrow(()->new EntityNotFoundException("Invalid patient id: "));
             //insuranceRepo.save(insurance); no need jpa will do because of cascade.all
             patient.setInsurance(insurance);
             insurance.setPatient(patient);// for bi direction consistency
             patientRepo.flush();
             return new InsuranceDto(insurance.getId(),insurance.getPatient().getId(),insurance.getProvider(),insurance.getPolicyNumber(),insurance.getValidUntil(),insurance.getCreatedAt());
-        }
-        return null;
     }
     // make better
     @Transactional
     public PatientDto removeInsuranceFromPatient(Long patientId){
-        Patient patient =  patientRepo.findById(patientId).orElseThrow();
+        Patient patient =  patientRepo.findById(patientId).orElseThrow(()-> new EntityNotFoundException("Invalid patient id: "));
         patient.setInsurance(null);//dirty
         List<Appointment> appointmentList = patient.getAppointments();
         List<Long> appointmentIds = new ArrayList<>();
