@@ -31,9 +31,9 @@ public class AppointmentService {
 
     @Transactional
     public AppointmentDto addAppointment(AppointmentCreateDto appointmentCreateDto) {
-        Patient patient = patientRepo.findById(appointmentCreateDto.getPatientId()).orElseThrow(() -> new EntityNotFoundException());
+        Patient patient = patientRepo.findById(appointmentCreateDto.getPatientId()).orElseThrow(() -> new EntityNotFoundException("Invalid Patient id: "));
 
-        Doctor doctor = doctorRepo.findById(appointmentCreateDto.getDoctorId()).orElseThrow(() -> new EntityNotFoundException());
+        Doctor doctor = doctorRepo.findById(appointmentCreateDto.getDoctorId()).orElseThrow(() -> new EntityNotFoundException("Invalid Doctor id: "));
 
         Appointment appointment = Appointment.builder()
                 .appointmentTime(appointmentCreateDto.getAppointmentTime())
@@ -66,7 +66,7 @@ public class AppointmentService {
     }
     @Transactional
     public AppointmentDto deleteAppointmentById(Long appointmentId){
-        Appointment dbAppointment = appointmentRepo.findById(appointmentId).orElseThrow(()->new EntityNotFoundException());
+        Appointment dbAppointment = appointmentRepo.findById(appointmentId).orElseThrow(()->new EntityNotFoundException("Invalid Appointment id: "));
         AppointmentDto appointmentDto =  new AppointmentDto(dbAppointment.getId(), dbAppointment.getReason(), dbAppointment.getAppointmentTime(), dbAppointment.getPatient().getId(),dbAppointment.getPatient().getName(),dbAppointment.getDoctor().getId(),dbAppointment.getDoctor().getName());
         dbAppointment.getPatient().getAppointments().remove(dbAppointment); // orphan removal will remove automatically from appointment db;
         dbAppointment.getDoctor().getAppointments().remove(dbAppointment);
