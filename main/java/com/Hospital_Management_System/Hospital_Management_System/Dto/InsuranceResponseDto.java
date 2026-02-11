@@ -1,9 +1,6 @@
 package com.Hospital_Management_System.Hospital_Management_System.Dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,7 +9,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class InsuranceDto {
+@Builder
+public class InsuranceResponseDto {
     private Long InsuranceId;
     private Long patientId;
     private String provider;
