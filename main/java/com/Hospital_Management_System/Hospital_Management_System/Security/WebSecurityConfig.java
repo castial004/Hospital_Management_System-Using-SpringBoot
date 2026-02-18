@@ -26,6 +26,7 @@ public class WebSecurityConfig {
     private final JwtAuthFilter jwtAuthFilter;
     private final AppUserRepo appUserRepo;
     private final AuthUtil authUtil;
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -43,22 +44,7 @@ public class WebSecurityConfig {
                         .failureHandler((((request, response, exception) ->{
                             log.error("OAuh2 error"+exception.getMessage());
                         } )))
-                                .successHandler(((request, response, authentication) -> {
-                            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-                            AppUser existingAppUser =  appUserRepo.findByUsername(oAuth2User.getAttribute("name")).orElse(null);
-                            if(existingAppUser==null){
-                                AppUser newAppUser =  AppUser.builder()
-                                        .username(oAuth2User.getAttribute("name"))
-                                        .password(oAuth2User.getAttribute("name"))
-                                        .build();
-                                AppUser savedAppUser =  appUserRepo.save(newAppUser);
-                                String jwtToken = authUtil.getAccessToken(savedAppUser);
-                                response.sendRedirect("http://localhost:5173/oauth-success?token=" + jwtToken);
-                            } else{
-                                String jwtToken = authUtil.getAccessToken(existingAppUser);
-                                response.sendRedirect("http://localhost:5173/oauth-success?token=" + jwtToken);
-                            }
-                        }))
+                        .successHandler(oAuth2SuccessHandler)
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
                 //.httpBasic(Customizer.withDefaults());
