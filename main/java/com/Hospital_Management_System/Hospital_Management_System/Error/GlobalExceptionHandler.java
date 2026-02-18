@@ -47,4 +47,9 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError("User Already Exist Choose Different Username!",HttpStatus.BAD_REQUEST);
         return ResponseEntity.badRequest().body(apiError);
     }
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiError> handleIllegalArgumentException(IllegalArgumentException illegalArgumentException){
+        ApiError apiError = new ApiError("Internal server error",HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity.internalServerError().body(apiError);
+    }
 }
