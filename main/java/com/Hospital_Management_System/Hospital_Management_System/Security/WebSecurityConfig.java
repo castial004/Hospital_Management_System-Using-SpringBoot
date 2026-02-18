@@ -24,8 +24,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig {
     private final MyUserDetailServiceImp myUserDetailServiceImp;
     private final JwtAuthFilter jwtAuthFilter;
-    private final AppUserRepo appUserRepo;
-    private final AuthUtil authUtil;
     private final OAuth2SuccessHandler oAuth2SuccessHandler;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
