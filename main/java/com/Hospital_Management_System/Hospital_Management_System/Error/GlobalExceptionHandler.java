@@ -6,6 +6,7 @@ import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -51,5 +52,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiError> handleIllegalArgumentException(IllegalArgumentException illegalArgumentException){
         ApiError apiError = new ApiError("Internal server error",HttpStatus.INTERNAL_SERVER_ERROR);
         return ResponseEntity.internalServerError().body(apiError);
+    }
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ApiError> handleBadCredException(BadCredentialsException badCredentialsException){
+        ApiError apiError = new ApiError(badCredentialsException.getMessage(),HttpStatus.BAD_REQUEST);
+        return ResponseEntity.badRequest().body(apiError);
     }
 }
