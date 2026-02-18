@@ -5,6 +5,7 @@ import com.Hospital_Management_System.Hospital_Management_System.Repository.AppU
 import com.Hospital_Management_System.Hospital_Management_System.Services.MyUserDetailServiceImp;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @AllArgsConstructor
+@Slf4j
 public class WebSecurityConfig {
     private final MyUserDetailServiceImp myUserDetailServiceImp;
     private final JwtAuthFilter jwtAuthFilter;
@@ -37,8 +39,11 @@ public class WebSecurityConfig {
 
 
                 )
-                .oauth2Login(oauth->
-                        oauth.successHandler(((request, response, authentication) -> {
+                .oauth2Login(oauth-> oauth
+                        .failureHandler((((request, response, exception) ->{
+                            log.error("OAuh2 error"+exception.getMessage());
+                        } )))
+                                .successHandler(((request, response, authentication) -> {
                             OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
                             AppUser existingAppUser =  appUserRepo.findByUsername(oAuth2User.getAttribute("name")).orElse(null);
                             if(existingAppUser==null){
