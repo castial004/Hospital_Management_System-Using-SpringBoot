@@ -1,12 +1,12 @@
 package com.Hospital_Management_System.Hospital_Management_System.Dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class LoginResponseDto {
     private String jwt;
     private Long id;
