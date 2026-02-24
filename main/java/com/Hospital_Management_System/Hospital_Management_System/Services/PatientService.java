@@ -5,6 +5,7 @@ import com.Hospital_Management_System.Hospital_Management_System.Dto.PatientDto;
 import com.Hospital_Management_System.Hospital_Management_System.Dto.PatientRequestDto;
 import com.Hospital_Management_System.Hospital_Management_System.Entity.Patient;
 import com.Hospital_Management_System.Hospital_Management_System.Repository.PatientRepo;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -22,24 +23,26 @@ public class PatientService {
 
 
     public PatientDto createPatient(PatientRequestDto patientDto){
-        Patient existingPatient =  patientRepo.findByEmail(patientDto.getEmail()).orElseThrow(()->new DuplicateEmailException("Email already exists"));
-
-        Patient patient = Patient.builder()
-                .name(patientDto.getName())
-                .email(patientDto.getEmail())
-                .birthDate(patientDto.getBirthDate())
-                .bloodGroup(patientDto.getBloodGroup())
-                .build();
-        Patient dbPatient =  patientRepo.save(patient);
-        return PatientDto.builder()
-                .id(dbPatient.getId())
-                .name(dbPatient.getName())
-                .email(dbPatient.getEmail())
-                .birthDate(dbPatient.getBirthDate())
-                .createdAt(dbPatient.getCreatedAt())
-                .appointmentIds(null)
-                .insuranceId(null)
-                .build();
+        Patient existingPatient =  patientRepo.findByEmail(patientDto.getEmail()).orElse(null);
+        if(existingPatient==null){
+            Patient patient = Patient.builder()
+                    .name(patientDto.getName())
+                    .email(patientDto.getEmail())
+                    .birthDate(patientDto.getBirthDate())
+                    .bloodGroup(patientDto.getBloodGroup())
+                    .build();
+            Patient dbPatient =  patientRepo.save(patient);
+            return PatientDto.builder()
+                    .id(dbPatient.getId())
+                    .name(dbPatient.getName())
+                    .email(dbPatient.getEmail())
+                    .birthDate(dbPatient.getBirthDate())
+                    .createdAt(dbPatient.getCreatedAt())
+                    .appointmentIds(null)
+                    .insuranceId(null)
+                    .build();
+        }
+        throw new EntityExistsException();
     }
 
     public PatientDto getPatientById(Long patientId){
