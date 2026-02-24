@@ -27,9 +27,14 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         String registrationId = token.getAuthorizedClientRegistrationId();
         OAuth2User oAuth2User = (OAuth2User)authentication.getPrincipal();
         ResponseEntity<LoginResponseDto> newResponse = authService.handleOAuthLogin(oAuth2User,registrationId);
-        response.setStatus(newResponse.getStatusCode().value());
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.getWriter().write(objectMapper.writeValueAsString(newResponse.getBody()));
-        response.sendRedirect("http://localhost:5173/oauth-success");
+//        response.setStatus(newResponse.getStatusCode().value());
+//        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+//        response.getWriter().write(objectMapper.writeValueAsString(newResponse.getBody()));
+        response.sendRedirect(
+                "http://localhost:5173/oauthsuccess" +
+                        "?token=" + newResponse.getBody().getJwt() +
+                        "&id=" + newResponse.getBody().getId() +
+                        "&username=" + newResponse.getBody().getUsername()
+        );
     }
 }
