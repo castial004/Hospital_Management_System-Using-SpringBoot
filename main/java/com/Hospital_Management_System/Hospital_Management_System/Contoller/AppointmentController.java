@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/appointment")
@@ -34,5 +36,10 @@ public class AppointmentController {
         catch (EntityNotFoundException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    @GetMapping("/doctor/id={doctorId}")
+    public ResponseEntity<List<Long>> getAllAppointmentByDoctorId(@PathVariable Long doctorId){
+        List<Long> ids = appointmentService.getAllAppointmentOfaDoctorService(doctorId);
+        return ResponseEntity.ok(ids);
     }
 }
