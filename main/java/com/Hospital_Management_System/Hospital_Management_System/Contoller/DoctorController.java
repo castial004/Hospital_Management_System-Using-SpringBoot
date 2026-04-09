@@ -1,11 +1,15 @@
 package com.Hospital_Management_System.Hospital_Management_System.Contoller;
 
+import com.Hospital_Management_System.Hospital_Management_System.Dto.AppointmentResponseDto;
 import com.Hospital_Management_System.Hospital_Management_System.Dto.DoctorCreateRequestDto;
 import com.Hospital_Management_System.Hospital_Management_System.Dto.DoctorResponseDto;
+import com.Hospital_Management_System.Hospital_Management_System.Entity.Appointment;
 import com.Hospital_Management_System.Hospital_Management_System.Services.DoctorService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/doctor")
@@ -22,4 +26,11 @@ public class DoctorController {
         DoctorResponseDto doctorResponseDto =  doctorService.getDoctorById(doctorId);
         return ResponseEntity.ok(doctorResponseDto);
     }
+    @GetMapping("/appointments")
+    public ResponseEntity<List<Appointment>> getAppointments(){
+       List<Appointment> appointments = doctorService.getAllAppointmentsDoctor();
+       return ResponseEntity.ok(appointments);
+    }
+
+
 }
