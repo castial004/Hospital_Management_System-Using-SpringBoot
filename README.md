@@ -233,7 +233,7 @@
 [//]: # ()
 
 
-# 🏥 Hospital Management System — Spring Boot REST API
+# 🏥 Hospital Management System — Spring Boot REST APIs
 
 A secure, scalable REST API for managing hospital operations including patient registration, doctor management, appointment booking, and insurance tracking. Built with Spring Boot, JWT authentication, role-based access control, and documented with Swagger UI.
 
