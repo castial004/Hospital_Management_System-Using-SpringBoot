@@ -25,10 +25,15 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long id;
+    @Column(nullable = false,length = 40)
     private String name;
-    @Column(unique = true)
+    @Column(unique = true,nullable = false)
     private String email;
     private LocalDate birthDate;
+
+    @OneToOne
+    @MapsId
+    private AppUser appUser;
 
     @CreationTimestamp
 //    @Column(nullable = false,updatable = false)
